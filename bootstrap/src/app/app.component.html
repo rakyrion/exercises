@@ -1,0 +1,28 @@
+<p>Bootstrap card example</p>
+<main class="main">
+	<div class="d-flex justify-content-center ">
+		<div class="card w-30 p-3">
+			<span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style="right: -45px">
+				+123
+			</span>
+			<div class="card-body">
+				<h4>Exercice</h4>
+				<p>Redo this card in css and if possible using bootstrap 4 or 5</p>
+				<div id="buttonContainer" class="w-100 d-inline-flex justify-content-end">
+					<button class="btn btn-dark">Got it</button>
+					<button class="btn btn-light border-dark">I don't know</button>
+					<button id="dropdownMenu" class="btn btn-secondary dropdown-toggle ms-3"
+						data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenu">
+						<a class="dropdown-item" href="#">Option 1</a>
+						<a class="dropdown-item" href="#">Option 2</a>
+						<a class="dropdown-item" href="#">Option 3</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+
+<router-outlet></router-outlet>

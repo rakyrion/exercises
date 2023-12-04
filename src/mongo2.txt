@@ -1,0 +1,27 @@
+MongoDb collection users with schema
+
+  {
+    email: string;
+    first_name: string;
+    last_name: string;
+    roles: string[];
+    last_connection_date: Date;
+  }
+
+
+Complete the aggregation so that it sends user emails by role ({_id: 'role', users: [email,...]})
+
+// FIRST WE UNWIND ROLES TO GET EACH SINGLE STRING FROM ARRAY, THEN WE GROUP ALL DOCUMENTS
+BY ROLES, AND SINCE AN USER COULD BE ON MULTIPLE ROLES WE DO ADDTOSET TO REMOVE DUPLICATES INSIDE EACH ROLE GROUP
+
+db.collections('users').aggregate([
+	{
+		"$unwind": "$roles"
+	},
+	{
+		$group": {
+			_id: '$roles',
+			users: { '$addToSet': '$email'}
+		}
+	}
+]);

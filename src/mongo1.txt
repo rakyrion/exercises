@@ -1,0 +1,42 @@
+MongoDb collection users with schema
+
+  {
+	email: string;
+	first_name: string;
+	last_name: string;
+	roles: string[];
+	last_connection_date: Date;
+}
+
+
+Complete the query, you have a variable that contains a piece of text to search for.Search by exact email, starts with first or last name and only users logged in for 6 months
+
+RESULT:
+
+- Here i have a doubt: Do we have only 1 variable for email, first name and last name? And we have to return when it match at least one of email, first name or lastname... or must match full email AND starts first OR last name?
+
+I will do my query based based on my supposition that would be:
+
+- 1 variable to match exact mail OR starts with first name OR starts with last name
+
+
+db.collections('users').find({"$and": [
+	{ "$or": [
+		{"email": variableToSearch },
+		{"first_name": {"$regex": "^variableToSearch", "$options": "i"} },
+		{"last_name": {"$regex": "^variableToSearch", "$options": "i"} }
+		]
+	},
+	{"last_connection_date": {"$gte": new Date(new Date().setMonth(new Date().getMonth() - 6))}}
+	]
+	
+});
+
+
+What should be added to the collection so that the query is not slow ?
+
+Indexing fields helps improve the time it takes to complete the query.
+For an users collection a single-field index on "email" will increase the speed of query 
+and also improves security to do not allow users to have multiple accounts on same email.
+
+The other fields can be indexed to improve response time... but the effectiveness will depend on the application if those fields are used recurrently, since the size of the DB will also increase.
